@@ -1,13 +1,18 @@
 #pip install Flask
 #pip install mongoengine
 
+#start backend: after you run 'cd server', run 'python server.py'
+
 from flask import Flask, jsonify
 from db import init_db
 from models.posts import Post
+from routes.postsRoutes import post_bp
 
 app = Flask(__name__)
 
 init_db()
+
+app.register_blueprint(post_bp, url_prefix='/posts')
 
 @app.route('/')
 def index():

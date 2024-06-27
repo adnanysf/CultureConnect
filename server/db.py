@@ -1,12 +1,14 @@
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
+import os
 
 uri = "mongodb+srv://cluster0.li7cguh.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&appName=Cluster0"
+certificate_path = os.path.join(os.path.dirname(__file__), 'x509.pem')
+
 client = MongoClient(uri,
                      tls=True,
-                     tlsCertificateKeyFile='../x509',
+                     tlsCertificateKeyFile=certificate_path,
                      server_api=ServerApi('1'))
-
-db = client['development']
 
 def init_db():
     global db
