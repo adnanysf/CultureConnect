@@ -62,6 +62,26 @@ def incrementLikeCountForUser( sid ):
         
         return {"status": "Failed"}
 
+def addFavoritePostToUser( sid, pid ):
+    client = None
+    try:
+
+        client = connectToDB()
+        db = client['development']
+        collection = db['users']
+
+        db.collection.update_one({ "SID": sid },{ "$addToSet": { "Favorites": pid } })
+
+        closeDB( client )
+
+        return {"status": "Success"}
+
+    except Exception as e:
+        if client:
+            closeDB( client )
+        
+        return {"status": "Failed"}
+
 """ Create databases """
 def createUsers():
     client = connectToDB()

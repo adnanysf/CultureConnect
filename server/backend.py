@@ -1,4 +1,4 @@
-from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser
+from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser, addFavoritePostToUser
 
 def _stripMongoDBId( mongoDBEntryData ):
     del mongoDBEntryData['_id']
@@ -22,4 +22,9 @@ def incrementLike( sid ):
 def decrementLike( sid ):
     print('Decrementing User Like Count For User : {}'.format(sid))
     resp = decrementLikeCountForUser( sid = sid )
+    return resp
+
+def favoritePostForUser(sid, pid):
+    print('Adding Post to Favorites For User : {}'.format(sid))
+    resp = addFavoritePostToUser( sid = sid, pid = pid)
     return resp
