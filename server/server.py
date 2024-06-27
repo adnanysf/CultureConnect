@@ -15,8 +15,8 @@ init_db()
 app.register_blueprint(post_bp, url_prefix='/posts')
 
 @app.route('/')
-def index():
-    return 'Welcome!'
+def home():
+    return 'Culture Connect V1.0'
 
 @app.route('/posts', methods=['GET'])
 def get_posts():
