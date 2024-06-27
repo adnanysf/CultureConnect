@@ -13,7 +13,7 @@ export const  Menu = () => {
 
     }
     return(
-        <main className="flex w-90 items-center justify-around rounded-lg" style={{width:"90%", height:"10%", backgroundColor:colors["Dark Blue"]}}>
+        <main className="flex w-90 items-center justify-around" style={{width:"90%", height:"8%", backgroundColor:colors["Dark Blue"], borderRadius:"2rem"}}>
             <Link href='/' className="flex items-center justify-center h-full" style={iconStyle}><CIcon icon={cilHome}/></Link>
             <Link href='/' className="flex items-center justify-center h-full" style={iconStyle}><CIcon icon={cilUser}></CIcon></Link>
             <Link href='/' className="flex items-center justify-center h-full" style={iconStyle}><CIcon icon={cilCalendar}/></Link>
