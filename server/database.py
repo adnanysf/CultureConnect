@@ -32,12 +32,13 @@ def decrementLikeCountForUser( sid ):
         db = client['development']
         collection = db['users']
 
-        db.collection.updateOne({ "SID": sid },{ "$inc": { "Likes": 1 } })
+        db.collection.update_one({ "SID": sid },{ "$inc": { "Likes": -1 } })
 
         closeDB( client )
 
         return {"status": "Success"}
     except Exception as e:
+        print(e)
         if client:
             closeDB( client )
         
@@ -50,7 +51,7 @@ def incrementLikeCountForUser( sid ):
         db = client['development']
         collection = db['users']
 
-        db.collection.updateOne({ "SID": sid },{ "$dec": { "Likes": 1 } })
+        db.collection.update_one({ "SID": sid },{ "$inc": { "Likes": 1 } })
 
         closeDB( client )
 
