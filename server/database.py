@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-
+import datetime
 
 def connectToDB():
     uri = "mongodb+srv://cluster0.li7cguh.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&appName=Cluster0"
@@ -98,6 +98,42 @@ def getCalendarYear(year):
 
     except Exception as e:
 
+        print(e)
+        if client:
+            closeDB( client )
+        
+        return {"status": "Failed"}
+
+def makeUserPost( sid, tags, title, text, image, firm ):
+    client = None
+    try:
+        client = connectToDB()
+
+        db = client['development']
+        collection = db['posts']
+
+        userPost = {
+            "date" : datetime.date.today().strftime('%Y-%m-%d'),
+            "timestamp" : datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "user" : sid,
+            "tags" : tags,
+            "title" : title,
+            "text" : text,
+            "image" : image,
+            "firm" : firm,
+            "likes" : 0,
+            "meta" : {'collection': 'posts'}
+        }
+
+        result = db.collection.insert_one(userPost)
+
+        print("Created User post")
+
+        closeDB( client )
+
+        return {"status": "Success"}
+
+    except Exception as e:
         print(e)
         if client:
             closeDB( client )

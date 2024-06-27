@@ -1,7 +1,7 @@
-from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser, addFavoritePostToUser,getCalendarYear
+from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser, addFavoritePostToUser,getCalendarYear, makeUserPost
 
-def _stripMongoDBId( mongoDBEntryData ):
-    del mongoDBEntryData['_id']
+def _modifyIdToString( mongoDBEntryData ):
+    mongoDBEntryData['_id'] = str(mongoDBEntryData['_id'])
 
     return mongoDBEntryData
 
@@ -9,7 +9,7 @@ def getUserProfile( sid ):
     print('Retrieving User Profile For User : {}'.format(sid))
     user = retrieveUserProfile( sid = sid )
     if user:
-        response = {"userData" : _stripMongoDBId( user )}
+        response = {"userData" : _modifyIdToString( user )}
     else:
         response = {"userData": {}}
     return response
@@ -35,7 +35,12 @@ def getCalendar( year ):
     resp = getCalendarYear( year = year )
 
     if "calendarObj" in resp and resp['calendarObj']:
-        response = {"calendarData" : _stripMongoDBId( resp['calendarObj'] )}
+        response = {"calendarData" : _modifyIdToString( resp['calendarObj'] )}
     else:
         response = {"calendarData": {}}
     return response
+
+def createUserPost( sid, tags, title, text, image, firm ):
+    print('Making a Post For User : {}'.format(sid))
+    resp = makeUserPost( sid, tags, title, text, image, firm)
+    return resp
