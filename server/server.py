@@ -13,7 +13,7 @@ def retrieveUserProfile():
     userSid = request.args.get('userSid', type=str)
 
     response = getUserProfile( sid = userSid )
-    return ''
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
