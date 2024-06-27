@@ -15,7 +15,14 @@ def closeDB( client ):
     return
 
 
+def retrieveUserProfile( sid ):
+    client = connectToDB()
+    db = client['userDB']
 
+    user = db.userDB.find_one({"SID":  sid})
+
+    closeDB( client )
+    return user
 
 """ Create databases """
 def createUsers():

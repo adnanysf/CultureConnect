@@ -10,7 +10,7 @@ def home():
 
 @app.route('/getUserProfile')
 def retrieveUserProfile():
-    userSid = str(request.json.get('userSid'))
+    userSid = request.args.get('userSid', type=str)
 
     response = getUserProfile( sid = userSid )
     return ''
