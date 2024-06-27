@@ -16,12 +16,19 @@ app.register_blueprint(post_bp, url_prefix='/posts')
 
 @app.route('/')
 def index():
-    return 'Welcome to the Flask app with MongoEngine!'
+    return 'Welcome!'
 
 @app.route('/posts', methods=['GET'])
 def get_posts():
     posts = Post.objects()
     return jsonify(posts)
+
+@app.route('/getUserProfile')
+def retrieveUserProfile():
+    userSid = request.args.get('userSid', type=str)
+
+    response = getUserProfile( sid = userSid )
+    return response
 
 if __name__ == '__main__':
     app.run(port=5000)
