@@ -1,4 +1,4 @@
-from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser, addFavoritePostToUser
+from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser, addFavoritePostToUser,getCalendarYear
 
 def _stripMongoDBId( mongoDBEntryData ):
     del mongoDBEntryData['_id']
@@ -28,3 +28,14 @@ def favoritePostForUser(sid, pid):
     print('Adding Post to Favorites For User : {}'.format(sid))
     resp = addFavoritePostToUser( sid = sid, pid = pid)
     return resp
+
+
+def getCalendar( year ):
+    print('Retrieving Calendar for Year : {}'.format(year))
+    resp = getCalendarYear( year = year )
+
+    if "calendarObj" in resp and resp['calendarObj']:
+        response = {"calendarData" : _stripMongoDBId( resp['calendarObj'] )}
+    else:
+        response = {"calendarData": {}}
+    return response

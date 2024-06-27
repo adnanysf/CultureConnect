@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 from db import init_db
 from models.posts import Post
 from routes.postsRoutes import post_bp
-from backend import getUserProfile, incrementLike, decrementLike, favoritePostForUser
+from backend import getUserProfile, incrementLike, decrementLike, favoritePostForUser, getCalendar
 
 app = Flask(__name__)
 
@@ -55,6 +55,14 @@ def favoritePost():
     postId = request.args.get('postId', type=str)
 
     response = favoritePostForUser( sid = userSid, pid = postId )
+    return response
+
+#http://127.0.0.1:5000/getCalendar?year=2024_TEST
+@app.route('/getCalendar')
+def getHolidayCalendar():
+    year = request.args.get('year', type=str)
+
+    response = getCalendar( year = year )
     return response
 
 if __name__ == '__main__':
