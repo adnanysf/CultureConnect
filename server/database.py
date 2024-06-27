@@ -17,19 +17,56 @@ def closeDB( client ):
 
 def retrieveUserProfile( sid ):
     client = connectToDB()
-    db = client['userDB']
+    db = client['development']
+    collection = db['users']
 
-    user = db.userDB.find_one({"SID":  sid})
+    user = db.collection.find_one({"SID":  sid})
 
     closeDB( client )
     return user
+
+def decrementLikeCountForUser( sid ):
+    client = None
+    try:
+        client = connectToDB()
+        db = client['development']
+        collection = db['users']
+
+        db.collection.updateOne({ "SID": sid },{ "$inc": { "Likes": 1 } })
+
+        closeDB( client )
+
+        return {"status": "Success"}
+    except Exception as e:
+        if client:
+            closeDB( client )
+        
+        return {"status": "Failed"}
+
+def incrementLikeCountForUser( sid ):
+    client = None
+    try:
+        client = connectToDB()
+        db = client['development']
+        collection = db['users']
+
+        db.collection.updateOne({ "SID": sid },{ "$dec": { "Likes": 1 } })
+
+        closeDB( client )
+
+        return {"status": "Success"}
+    except Exception as e:
+        if client:
+            closeDB( client )
+        
+        return {"status": "Failed"}
 
 """ Create databases """
 def createUsers():
     client = connectToDB()
 
-    db = client['userDB']
-
+    db = client['development']
+    collection = db['users']
     #Add test user
 
     test_user = {
@@ -44,10 +81,8 @@ def createUsers():
         'OtherData': {},
     }
 
-    result = db.userDB.insert_one(test_user)
+    result = db.collection.insert_one(test_user)
 
     print("Inserted user in userDB")
 
     closeDB( client )
-
-

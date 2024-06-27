@@ -3,10 +3,11 @@
 
 #start backend: after you run 'cd server', run 'python server.py'
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from db import init_db
 from models.posts import Post
 from routes.postsRoutes import post_bp
+from backend import getUserProfile, incrementLike, decrementLike
 
 app = Flask(__name__)
 
@@ -28,6 +29,20 @@ def retrieveUserProfile():
     userSid = request.args.get('userSid', type=str)
 
     response = getUserProfile( sid = userSid )
+    return response
+
+@app.route('/incrementLike')
+def incrementLikeCountForUser():
+    userSid = request.args.get('userSid', type=str)
+
+    response = incrementLike( sid = userSid )
+    return response
+
+@app.route('/decrementLike')
+def decrementLikeCountForUser():
+    userSid = request.args.get('userSid', type=str)
+    
+    response = decrementLike( sid = userSid )
     return response
 
 if __name__ == '__main__':

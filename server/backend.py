@@ -1,4 +1,4 @@
-from database import retrieveUserProfile
+from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser
 
 def _stripMongoDBId( mongoDBEntryData ):
     del mongoDBEntryData['_id']
@@ -8,6 +8,18 @@ def _stripMongoDBId( mongoDBEntryData ):
 def getUserProfile( sid ):
     print('Retrieving User Profile For User : {}'.format(sid))
     user = retrieveUserProfile( sid = sid )
-    
-    response = {"userData" : _stripMongoDBId( user )}
+    if user:
+        response = {"userData" : _stripMongoDBId( user )}
+    else:
+        response = {"userData": {}}
     return response
+
+def incrementLike( sid ):
+    print('Incrementing User Like Count For User : {}'.format(sid))
+    resp = incrementLikeCountForUser( sid = sid )
+    return resp
+
+def decrementLike( sid ):
+    print('Decrementing User Like Count For User : {}'.format(sid))
+    resp = decrementLikeCountForUser( sid = sid )
+    return resp
