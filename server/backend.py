@@ -1,4 +1,4 @@
-from database import retrieveUserProfile, incrementLikeCountForUser, decrementLikeCountForUser, addFavoritePostToUser,getCalendarYear, makeUserPost
+from database import retrieveUserProfile, addLikedPostToUser, addFavoritePostToUser,getCalendarYear, makeUserPost
 
 def _modifyIdToString( mongoDBEntryData ):
     mongoDBEntryData['_id'] = str(mongoDBEntryData['_id'])
@@ -14,21 +14,15 @@ def getUserProfile( sid ):
         response = {"userData": {}}
     return response
 
-def incrementLike( sid ):
-    print('Incrementing User Like Count For User : {}'.format(sid))
-    resp = incrementLikeCountForUser( sid = sid )
-    return resp
-
-def decrementLike( sid ):
-    print('Decrementing User Like Count For User : {}'.format(sid))
-    resp = decrementLikeCountForUser( sid = sid )
+def likePostForUser(sid, pid):
+    print('Adding Like For User : {}'.format(sid))
+    resp = addLikedPostToUser( sid = sid, pid = pid)
     return resp
 
 def favoritePostForUser(sid, pid):
     print('Adding Post to Favorites For User : {}'.format(sid))
     resp = addFavoritePostToUser( sid = sid, pid = pid)
     return resp
-
 
 def getCalendar( year ):
     print('Retrieving Calendar for Year : {}'.format(year))
