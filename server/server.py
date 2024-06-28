@@ -14,6 +14,7 @@ from backend import getUserProfile, likePostForUser, favoritePostForUser, getCal
 app = Flask(__name__)
 cors = CORS(app, resources={ 
                              r"/posts": {"origins": "*"},
+                             r"/posts/all": {"origins": "*"},
                              r"/getUserProfile": {"origins":"*"},
                              r"/likePostForUser": {"origins": "*"},
                              r"/favoritePostForUser": {"origins":"*"},
