@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from db import get_db
 from bson.objectid import ObjectId
 import base64
+from models.posts import Post
 
 post_bp = Blueprint('post_bp', __name__)
 
@@ -45,7 +46,7 @@ def get_post():
         return jsonify({'error': str(e)}), 500
 
 # Create a new post
-@post_bp.route('/', methods=['POST'])
+@post_bp.route('/insert', methods=['POST'])
 def create_post():
     db = get_db()
     posts_collection = db['posts']
@@ -59,12 +60,10 @@ def create_post():
                 return jsonify({'error': f'Missing required field: {field}'}), 400
 
         # Process image if present
-        if 'image_data' in post_data and 'image_content_type' in post_data:
-            image_data = post_data.pop('image_data')
-            image_content_type = post_data.pop('image_content_type')
+        if 'image' in post_data:
+            image_data = post_data.pop('image')
             post_data['image'] = {
-                'data': base64.b64decode(image_data),
-                'contentType': image_content_type
+                'data': base64.b64decode(image_data)
             }
         else:
             post_data['image'] = None
