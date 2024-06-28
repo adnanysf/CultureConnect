@@ -25,37 +25,20 @@ def retrieveUserProfile( sid ):
     closeDB( client )
     return user
 
-def decrementLikeCountForUser( sid ):
+def addLikedPostToUser( sid, pid ):
     client = None
     try:
+
         client = connectToDB()
         db = client['development']
         collection = db['users']
 
-        db.collection.update_one({ "SID": sid },{ "$inc": { "Likes": -1 } })
+        db.collection.update_one({ "SID": sid },{ "$addToSet": { "Likes": pid } })
 
         closeDB( client )
 
         return {"status": "Success"}
-    except Exception as e:
-        print(e)
-        if client:
-            closeDB( client )
-        
-        return {"status": "Failed"}
 
-def incrementLikeCountForUser( sid ):
-    client = None
-    try:
-        client = connectToDB()
-        db = client['development']
-        collection = db['users']
-
-        db.collection.update_one({ "SID": sid },{ "$inc": { "Likes": 1 } })
-
-        closeDB( client )
-
-        return {"status": "Success"}
     except Exception as e:
         if client:
             closeDB( client )
@@ -152,11 +135,11 @@ def createUsers():
         'Name': 'Test User1',
         'Location': 'Houston',
         'Position': 'Software Developer',
-        'SID': 'a123456',
+        'SID': 'a987654',
         'Email': 'test.user@jpmchase.com',
         'Bio': 'Experienced software developer...',
-        'Likes': 0,  # List to store IDs of liked posts
-        'Favorites': [],  # List to store IDs of favorite items
+        'Likes': [],  
+        'Favorites': [],  
         'OtherData': {},
     }
 

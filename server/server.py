@@ -9,10 +9,17 @@ from flask_cors import CORS
 from db import init_db
 from models.posts import Post
 from routes.postsRoutes import post_bp
-from backend import getUserProfile, incrementLike, decrementLike, favoritePostForUser, getCalendar, createUserPost
+from backend import getUserProfile, likePostForUser, favoritePostForUser, getCalendar, createUserPost
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app, resources={ 
+                             r"/posts": {"origins": "*"},
+                             r"/getUserProfile": {"origins":"*"},
+                             r"/likePostForUser": {"origins": "*"},
+                             r"/favoritePostForUser": {"origins":"*"},
+                             r"/createUserPost": {"origins": "*"},
+                             r"/getCalendar": {"origins":"*"},
+                           })
 
 init_db()
 
@@ -35,20 +42,13 @@ def retrieveUserProfile():
     response = getUserProfile( sid = userSid )
     return response
 
-#http://127.0.0.1:5000/incrementLike?userSid=a123456
-@app.route('/incrementLike')
-def incrementLikeCountForUser():
+#http://127.0.0.1:5000/likePostForUser?userSid=a987654&postId=1234
+@app.route('/likePostForUser')
+def likePost():
     userSid = request.args.get('userSid', type=str)
+    postId = request.args.get('postId', type=str)
 
-    response = incrementLike( sid = userSid )
-    return response
-
-#http://127.0.0.1:5000/decrementLike?userSid=a123456
-@app.route('/decrementLike')
-def decrementLikeCountForUser():
-    userSid = request.args.get('userSid', type=str)
-    
-    response = decrementLike( sid = userSid )
+    response = likePostForUser( sid = userSid, pid = postId )
     return response
 
 #http://127.0.0.1:5000/favoritePostForUser?userSid=a123456&postId=1234TestId
