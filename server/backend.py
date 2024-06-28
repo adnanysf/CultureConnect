@@ -1,9 +1,14 @@
-from database import retrieveUserProfile, addLikedPostToUser, addFavoritePostToUser,getCalendarYear, makeUserPost
+from database import retrieveUserProfile, addLikedPostToUser, addFavoritePostToUser,getCalendarYear, makeUserPost, getPostsFromId
 
 def _modifyIdToString( mongoDBEntryData ):
     mongoDBEntryData['_id'] = str(mongoDBEntryData['_id'])
 
     return mongoDBEntryData
+
+def getPostFromId( postIds ):
+    print('Getting posts')
+    resp = getPostsFromId( pids = postIds)
+    return resp
 
 def getUserProfile( sid ):
     print('Retrieving User Profile For User : {}'.format(sid))
