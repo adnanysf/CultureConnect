@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {colors} from "../colors/Color";
 import CIcon from '@coreui/icons-react';
-import axios from 'axios';
+// import axios from 'axios';
 import { cilCalendar, cilUser, cilHome, cilAccountLogout, cilSend, cilFile, cilXCircle, cilPlus} from '@coreui/icons';
 
 
@@ -31,21 +31,21 @@ export const News = () => {
         setIsExpanded(!isExpanded);
     };
 
-    const handleSubmit = async () => {
-        try {
-            const newPost = {date: "06/21/2021", timestamp: "06/21/2021 12:00:00", user: "O803101", tags: tag, title: title, 
-                             text: content, image: null, firm: "Houston, Texas", likes: 0};
-            const response = await axios.post('http://localhost:5000/posts/insert', newPost);
-            console.log('Post submitted successfully', response.data);
-            // Optionally, reset the form fields
-            setTitle('');
-            setContent('');
-            setTag('');
-            setIsExpanded(false); // Collapse the form after submission
-        } catch (error) {
-            console.error('Error submitting post:', error);
-        }
-    };
+    // const handleSubmit = async () => {
+    //     try {
+    //         const newPost = {date: "06/21/2021", timestamp: "06/21/2021 12:00:00", user: "O803101", tags: tag, title: title, 
+    //                          text: content, image: null, firm: "Houston, Texas", likes: 0};
+    //         const response = await axios.post('http://localhost:5000/posts/insert', newPost);
+    //         console.log('Post submitted successfully', response.data);
+    //         // Optionally, reset the form fields
+    //         setTitle('');
+    //         setContent('');
+    //         setTag('');
+    //         setIsExpanded(false); // Collapse the form after submission
+    //     } catch (error) {
+    //         console.error('Error submitting post:', error);
+    //     }
+    // };
 
     return (
         <motion.div
@@ -77,7 +77,6 @@ export const News = () => {
                             <button
                                 className="rounded-lg p-1"
                                 style={{ backgroundColor: colors["Dark Blue"], color: colors["offW"], width: "7%" }}
-                                onClick={handleSubmit}
                             >
                                 <CIcon icon={cilSend} />
                             </button>

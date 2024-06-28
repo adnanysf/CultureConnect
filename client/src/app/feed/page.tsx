@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { Menu, Title } from "../components/menu/Menu";
 import {colors} from "../components/colors/Color";
 import { Filter, News } from "../components/filter/filter";
@@ -9,6 +9,21 @@ import { Post } from "../components/posts/Post";
 import { cilCalendar, cilUser, cilHome, cilAccountLogout, cilSend, cilFile} from '@coreui/icons';
 
 export default function Feed() {
+    const [posts, setPosts] = useState([])
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:5000/posts/all");
+            const data = await response.json();
+            setPosts(data);
+            console.log(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+            
+    }
+    useEffect(() => {
+        fetchPosts();
+    },[])
 
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
@@ -59,10 +74,10 @@ export default function Feed() {
             <div className="h-full w-2/3 flex flex-col items-center p-5">
             <div className="w-full h-full flex flex-col items-center gap-10" style={{backgroundColor: colors["offW"], 
             borderRadius: "2rem", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.5)", overflowY: "auto", padding:"2rem 0"}}>
+                    {/* <Post/>
                     <Post/>
                     <Post/>
-                    <Post/>
-                    <Post/>
+                    <Post/> */}
 
                 </div>
             </div>

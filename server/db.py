@@ -6,9 +6,10 @@ uri = "mongodb+srv://cluster0.li7cguh.mongodb.net/?authSource=%24external&authMe
 certificate_path = os.path.join(os.path.dirname(__file__), './mongoDB_Cert/X509-cert-8234562306763361369.pem')
 
 client = MongoClient(uri,
-                     tls=True,
-                     tlsCertificateKeyFile=certificate_path,
-                     server_api=ServerApi('1'))
+                        tls=True,
+                        tlsCertificateKeyFile='./mongoDB_Cert/X509-cert-8234562306763361369.pem',
+                        tlsAllowInvalidCertificates=True
+                        )
 
 def init_db():
     global db

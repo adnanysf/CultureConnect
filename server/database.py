@@ -6,9 +6,10 @@ def connectToDB():
     client = MongoClient(uri,
                         tls=True,
                         tlsCertificateKeyFile='./mongoDB_Cert/X509-cert-8234562306763361369.pem',
+                        tlsAllowInvalidCertificates=True
                         )
     return client
-
+#connect(db='mydb', host='mongodb+srv://username:password@cluster0.mongodb.net/test?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true')
 
 def closeDB( client ):
     client.close()
