@@ -5,7 +5,7 @@ import base64
 
 post_bp = Blueprint('post_bp', __name__)
 
-#ex: http://127.0.0.1:5000/posts/all
+# Get all posts
 @post_bp.route('/all', methods=['GET'])
 def get_all_posts():
     db = get_db()
@@ -18,8 +18,7 @@ def get_all_posts():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-#ex: http://127.0.0.1:5000/posts/?date=08/19/2003&timestamp=00:11:23&user=O803101
+# Get post by details
 @post_bp.route('/', methods=['GET'])
 def get_post():
     db = get_db()
@@ -45,6 +44,7 @@ def get_post():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Create a new post
 @post_bp.route('/', methods=['POST'])
 def create_post():
     db = get_db()

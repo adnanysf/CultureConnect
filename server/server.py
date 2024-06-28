@@ -1,15 +1,18 @@
 #pip install Flask
 #pip install mongoengine
+#pip install flask-cors
 
 #start backend: after you run 'cd server', run 'python server.py'
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from db import init_db
 from models.posts import Post
 from routes.postsRoutes import post_bp
 from backend import getUserProfile, incrementLike, decrementLike, favoritePostForUser, getCalendar, createUserPost
 
 app = Flask(__name__)
+CORS(app)
 
 init_db()
 
