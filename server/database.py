@@ -16,6 +16,18 @@ def closeDB( client ):
     return
 
 
+def getPostsFromId(pids):
+    client = connectToDB()
+    db = client['development']
+
+    posts = []
+    for pid in pids:
+        posts.append(db.posts.find_one({"_id":  pid}))
+        posts[-1]["_id"] = str(posts[-1]["_id"])
+
+    closeDB( client )
+    return posts
+    
 def retrieveUserProfile( sid ):
     client = connectToDB()
     db = client['development']
