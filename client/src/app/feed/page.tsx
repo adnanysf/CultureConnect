@@ -9,8 +9,47 @@ import { Post } from "../components/posts/Post";
 import { cilCalendar, cilUser, cilHome, cilAccountLogout, cilSend, cilFile} from '@coreui/icons';
 
 export default function Feed() {
-    return(
-        <main className="flex h-screen w-screen flex-row" style={{backgroundColor: "#edeef0"}}>
+
+    const [title, setTitle] = useState<string>('');
+    const [content, setContent] = useState<string>('');
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        const postData = {
+            date: '2024-01-01',
+            timestamp: '2024-01-01 12:00:00',
+            user: 'O123456',
+            tags: "",
+            title: title,
+            text: content,
+            image: null,
+            firm: 'Houston, Texas',
+            likes: 0
+        };
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    return (
+        <main className="flex h-screen w-screen flex-row" style={{ backgroundColor: "edeef0" }}>
             <div className="h-full w-1/3 flex flex-col items-center p-5 gap-5">
                 <Title/>
                 <Menu/>
