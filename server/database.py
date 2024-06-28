@@ -18,9 +18,8 @@ def closeDB( client ):
 def retrieveUserProfile( sid ):
     client = connectToDB()
     db = client['development']
-    collection = db['users']
 
-    user = db.collection.find_one({"SID":  sid})
+    user = db.users.find_one({"SID":  sid})
 
     closeDB( client )
     return user
@@ -31,9 +30,8 @@ def addLikedPostToUser( sid, pid ):
 
         client = connectToDB()
         db = client['development']
-        collection = db['users']
 
-        db.collection.update_one({ "SID": sid },{ "$addToSet": { "Likes": pid } })
+        db.users.update_one({ "SID": sid },{ "$addToSet": { "Likes": pid } })
 
         closeDB( client )
 
@@ -51,9 +49,8 @@ def addFavoritePostToUser( sid, pid ):
 
         client = connectToDB()
         db = client['development']
-        collection = db['users']
 
-        db.collection.update_one({ "SID": sid },{ "$addToSet": { "Favorites": pid } })
+        db.users.update_one({ "SID": sid },{ "$addToSet": { "Favorites": pid } })
 
         closeDB( client )
 
@@ -71,9 +68,8 @@ def getCalendarYear(year):
 
         client = connectToDB()
         db = client['development']
-        collection = db['calendars']
 
-        calendarObj = db.collection.find_one({ "Year": year })
+        calendarObj = db.calendars.find_one({ "Year": year })
 
         closeDB( client )
 
@@ -93,7 +89,6 @@ def makeUserPost( sid, tags, title, text, image, firm ):
         client = connectToDB()
 
         db = client['development']
-        collection = db['posts']
 
         userPost = {
             "date" : datetime.date.today().strftime('%Y-%m-%d'),
@@ -108,7 +103,7 @@ def makeUserPost( sid, tags, title, text, image, firm ):
             "meta" : {'collection': 'posts'}
         }
 
-        result = db.collection.insert_one(userPost)
+        result = db.posts.insert_one(userPost)
 
         print("Created User post")
 
@@ -128,7 +123,6 @@ def createUsers():
     client = connectToDB()
 
     db = client['development']
-    collection = db['users']
     #Add test user
 
     test_user = {
@@ -143,7 +137,7 @@ def createUsers():
         'OtherData': {},
     }
 
-    result = db.collection.insert_one(test_user)
+    result = db.users.insert_one(test_user)
 
     print("Inserted user in userDB")
 
@@ -153,7 +147,6 @@ def createCalendars():
     client = connectToDB()
 
     db = client['development']
-    collection = db['calendars']
     #Add test calendar
 
     test_calendar = {
@@ -177,7 +170,7 @@ def createCalendars():
         'OtherData': {},
     }
 
-    result = db.collection.insert_one(test_calendar)
+    result = db.calendars.insert_one(test_calendar)
 
     print("Inserted calendar into calendars DB")
 
