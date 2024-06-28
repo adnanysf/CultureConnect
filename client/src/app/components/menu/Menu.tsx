@@ -23,7 +23,7 @@ export const  Menu = () => {
         <main className="flex w-90 items-center justify-around shadow" style={{width:"90%", height:"8%", backgroundColor:colors["Dark Blue"], borderRadius:"2rem", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.5)"}}>
             <Link href='/feed' className="flex items-center justify-center h-full" style={iconStyle('home')} onMouseEnter={() => setHoveredLink('home')} onMouseLeave={() => setHoveredLink(null)}><CIcon icon={cilHome}/></Link>
             <Link href='/profile' className="flex items-center justify-center h-full" style={iconStyle('user')} onMouseEnter={() => setHoveredLink('user')} onMouseLeave={() => setHoveredLink(null)}><CIcon icon={cilUser}></CIcon></Link>
-            <Link href='/' className="flex items-center justify-center h-full" style={iconStyle('calendar')} onMouseEnter={() => setHoveredLink('calendar')} onMouseLeave={() => setHoveredLink(null)}><CIcon icon={cilCalendar}/></Link>
+            <Link href='/calendar' className="flex items-center justify-center h-full" style={iconStyle('calendar')} onMouseEnter={() => setHoveredLink('calendar')} onMouseLeave={() => setHoveredLink(null)}><CIcon icon={cilCalendar}/></Link>
             <Link href='/' className="flex items-center justify-center h-full" style={iconStyle('logout')} onMouseEnter={() => setHoveredLink('logout')} onMouseLeave={() => setHoveredLink(null)}><CIcon icon={cilAccountLogout}/></Link>
         </main>
     )

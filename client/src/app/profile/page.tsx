@@ -9,7 +9,7 @@ import { Favorites, MyPosts } from "../components/profileComponents/profileViews
 
 export default function Profile() {
     return(
-        <div className="w-screen h-screen flex flex-row"  style={{backgroundColor: colors["Off"]}}>
+        <div className="w-screen h-screen flex flex-row"  style={{backgroundColor: colors["offW"]}}>
             <div className="w-1/3 h-full flex flex-col items-center justify-center p-5 gap-5">
                 <Title/>
                 <Menu/>
