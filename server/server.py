@@ -9,7 +9,7 @@ from flask_cors import CORS
 from db import init_db
 from models.posts import Post
 from routes.postsRoutes import post_bp
-from backend import getUserProfile, likePostForUser, favoritePostForUser, getCalendar, createUserPost
+from backend import getUserProfile, likePostForUser, favoritePostForUser, getCalendar, createUserPost, getPostFromId
 
 app = Flask(__name__)
 cors = CORS(app, resources={ 
@@ -21,6 +21,7 @@ cors = CORS(app, resources={
                              r"/favoritePostForUser": {"origins":"*"},
                              r"/createUserPost": {"origins": "*"},
                              r"/getCalendar": {"origins":"*"},
+                             r"/getPostFromId": {"origins":"*"}
                            })
 
 init_db()
@@ -73,6 +74,13 @@ def postByUser():
     firm = request.json.get('firm')
 
     response = createUserPost( userSid, tags, title, text, image, firm )
+    return response
+
+@app.route('/getPostFromId', methods=['POST'])
+def getPostbyId():
+    postIds = request.json.get('postIds')
+
+    response = getPostFromId( postIds )
     return response
 
 #http://127.0.0.1:5000/getCalendar?year=2024_TEST
