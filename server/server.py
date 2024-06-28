@@ -15,6 +15,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={ 
                              r"/posts": {"origins": "*"},
                              r"/posts/all": {"origins": "*"},
+                             r"/post/insert": {"origins": "*"},
                              r"/getUserProfile": {"origins":"*"},
                              r"/likePostForUser": {"origins": "*"},
                              r"/favoritePostForUser": {"origins":"*"},
