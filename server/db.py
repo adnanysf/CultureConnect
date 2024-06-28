@@ -3,7 +3,7 @@ from pymongo.server_api import ServerApi
 import os
 
 uri = "mongodb+srv://cluster0.li7cguh.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&appName=Cluster0"
-certificate_path = os.path.join(os.path.dirname(__file__), 'x509.pem')
+certificate_path = os.path.join(os.path.dirname(__file__), './mongoDB_Cert/X509-cert-8234562306763361369.pem')
 
 client = MongoClient(uri,
                      tls=True,

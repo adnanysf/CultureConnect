@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
 from db import get_db
+from bson.objectid import ObjectId
+import base64
 
 post_bp = Blueprint('post_bp', __name__)
 
@@ -40,5 +42,34 @@ def get_post():
         
         post['_id'] = str(post['_id'])  # Convert ObjectId to string for JSON serialization
         return jsonify(post)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@post_bp.route('/', methods=['POST'])
+def create_post():
+    db = get_db()
+    posts_collection = db['posts']
+    try:
+        post_data = request.json
+
+        # Ensure required fields are present
+        required_fields = ['date', 'timestamp', 'user', 'title']
+        for field in required_fields:
+            if field not in post_data:
+                return jsonify({'error': f'Missing required field: {field}'}), 400
+
+        # Process image if present
+        if 'image_data' in post_data and 'image_content_type' in post_data:
+            image_data = post_data.pop('image_data')
+            image_content_type = post_data.pop('image_content_type')
+            post_data['image'] = {
+                'data': base64.b64decode(image_data),
+                'contentType': image_content_type
+            }
+        else:
+            post_data['image'] = None
+
+        result = posts_collection.insert_one(post_data)
+        return jsonify({'_id': str(result.inserted_id)}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
