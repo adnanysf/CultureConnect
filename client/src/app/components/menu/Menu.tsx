@@ -4,7 +4,6 @@ import CIcon from '@coreui/icons-react';
 import { cilCalendar, cilUser, cilHome, cilAccountLogout} from '@coreui/icons';
 import {colors} from "../colors/Color";
 import { useState } from "react";
-
 export const title = "CultureConnect | JPMorganChase"
 export const Title = () => {
     return (
@@ -16,7 +15,7 @@ export const  Menu = () => {
 
     const iconStyle = (link: String) => ({
         width: "7%",
-        color: colors["Off"],
+        color: colors["White"],
         opacity: link === hoveredLink ? "1" : "0.6",
     });
 
