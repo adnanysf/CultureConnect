@@ -62,14 +62,14 @@ def favoritePost():
     return response
 
 #http://127.0.0.1:5000/createUserPost?userSid=a123456&tags=["Landmarks"]&title=The Statue of Liberty&text=""&image=""&firm=Houston
-@app.route('/createUserPost')
+@app.route('/createUserPost', methods=['POST'])
 def postByUser():
-    userSid = request.args.get('userSid', type=str)
-    tags = request.args.get('tags')
-    title = request.args.get('title', type=str)
-    text = request.args.get('text', type=str)
-    image = request.args.get('image')
-    firm = request.args.get('firm', type=str)
+    userSid = request.json.get('userSid')
+    tags = request.json.get('tags')
+    title = request.json.get('title')
+    text = request.json.get('text')
+    image = request.json.get('image')
+    firm = request.json.get('firm')
 
     response = createUserPost( userSid, tags, title, text, image, firm )
     return response

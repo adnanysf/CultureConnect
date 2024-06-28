@@ -13,6 +13,7 @@ def get_all_posts():
     posts_collection = db['posts']
     try:
         posts = list(posts_collection.find({}))
+        print(f'Found {len(posts)} posts') 
         for post in posts:
             post['_id'] = str(post['_id'])  # Convert ObjectId to string for JSON serialization
         return jsonify(posts)
