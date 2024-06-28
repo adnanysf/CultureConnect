@@ -17,15 +17,19 @@ const Cal = () => {
     setDate(value);
   };
 
-  const tileContent = ({ date, view }: CalendarTileProperties) => {
+  const tileContent = ({ date, view ,activeStartDate}: CalendarTileProperties) => {
     if (view === 'month') {
-      const event = events.find(e => new Date(e.date).toDateString() === date.toDateString());
-      return event ? <p>{event.event}</p> : null;
-    }
-  };
+        const event = events.find(e => new Date(e.date).toDateString() === date.toDateString());
+        if (new Date(date).getMonth() !== new Date(activeStartDate).getMonth()) {
+          const currentMonthEvents = events.filter(e => new Date(e.date).getMonth() === new Date(activeStartDate).getMonth());
+          console.log('Events for this month:', currentMonthEvents);
+        }
+        return event ? <p>{event.event}</p> : null;
+      }
+    };
 
   return (
-    <div>
+    <div style={{scale:"2"}}>
       <Calendar
         onChange={onChange}
         value={date}
