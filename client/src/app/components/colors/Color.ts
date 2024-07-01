@@ -8,6 +8,7 @@ export const colors = {
     "White" : "#ffffff",
     "Red" : "#c20000",
     "Dark Blue": '#003372',
-    "offW":"#f5f5f5"
+    "offW":"#f5f5f5",
+    "DBlue": "#154C8A"
 
 }
